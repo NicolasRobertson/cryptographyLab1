@@ -6,29 +6,29 @@ import java.util.ArrayList;
 
 public class VigenereCipher {
     public static void main(String args0[]) throws FileNotFoundException {
-        String testString = "Sonic is cool";
-        String testKey = "grep";
-        testString = makeValid(testString);
-        System.out.println(testString);
-        String encryptTestString = encrypt(testString, testKey);
-        System.out.println(encryptTestString);
-        String decryptTestString = decrypt(encryptTestString, testKey);
-        System.out.println(decryptTestString);
-        String story = "I was walking in the forest";
-//////////////////////////////////////////////////////////////
         ArrayList<String> keys = getKeys();
+        ArrayList<String> keysUsed = new ArrayList<>();
         ArrayList<String> solutions = new ArrayList<>();
-        String textToEncrypt = story;
-        textToEncrypt = encrypt(textToEncrypt, "haircut");
-        
-        String decryptedText;
+        String textToEncrypt =  "I was walking in the forest";;
+        textToEncrypt = encrypt(textToEncrypt, "apples");
+        String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
+        "ftspacmrknxwfhoiasvifbkaskseuiecjfeihgutlrqvhvvafdvbsupvqluowhzgspglgmjqja" +
+        "pkofclpgauijikgdkctterqzerpdlqgiohjitgweuiwlaspglgmjoffgrwfcctskutfhzgcfbl" +
+        "gnkggheeqjapksvoejgsiejsngnztljetfqrtfujcpywumepwkwnbbgynzbsfdzhaqnkcectys" +
+        "ectzqsnaeodaszgghcimhvoxfsrhzqsngffavhdgutyghspacmkkszbunuuskvhvglwdpcxuiu" +
+        "sujaebwnakhsekjhzctucfqtkojiekkwckeskuejwfvhvqjapkcytagvaeacugtikveutyseue" +
+        "cjwublhapskssfeoddqikkwckeskuejwfvhvwjkmgzwoeehsvifb";
         for(int i = 0;i<keys.size();i++){
-            decryptedText = decrypt(textToEncrypt, keys.get(i));
-            solutions.add(decrypt(textToEncrypt, keys.get(i)));
+            solutions.add(decrypt(textToDecrypt, keys.get(i)));
+            keysUsed.add(keys.get(i));
         }
-        System.out.println(solutions.size());
+        System.out.println(solutions.size() + " Solutions remain");
         solutions = lookForCommonWords(solutions);
-        System.out.println(solutions.size());
+        System.out.println(solutions.size() + " Solutions remain");
+        for(int i = 0; i < solutions.size();i++){
+            System.out.println(solutions.get(i));
+        }
+        System.out.println(keys.get(19680));
     }
 
     public static String encrypt(String message, String key) {
@@ -95,8 +95,9 @@ public class VigenereCipher {
     public static ArrayList<String> lookForCommonWords(ArrayList<String> list){
         ArrayList<String> validtext = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            if(list.get(i).contains("the")){
+            if(list.get(i).contains("the") && (list.get(i).contains("in") && (list.get(i).contains("and")) && (list.get(i).contains("of")) && list.get(i).contains("to")) ){
                 validtext.add(list.get(i));
+                System.out.println(i);
             }
         }
         return validtext;
