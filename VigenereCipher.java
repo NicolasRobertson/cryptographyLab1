@@ -30,29 +30,19 @@ public class VigenereCipher {
         System.out.println(textToEncrypt);
         System.out.println(decrypt(textToEncrypt, "daunting"));
 
-        String dumb = segmentText(textToDecrypt, 8);
-        String decryptedText = decrypt(textToDecrypt, "gbnufiul");
-        System.out.println(decryptedText);
-
-      /*  String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
+        String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
         "ftspacmrknxwfhoiasvifbkaskseuiecjfeihgutlrqvhvvafdvbsupvqluowhzgspglgmjqja" +
         "pkofclpgauijikgdkctterqzerpdlqgiohjitgweuiwlaspglgmjoffgrwfcctskutfhzgcfbl" +
         "gnkggheeqjapksvoejgsiejsngnztljetfqrtfujcpywumepwkwnbbgynzbsfdzhaqnkcectys" +
         "ectzqsnaeodaszgghcimhvoxfsrhzqsngffavhdgutyghspacmkkszbunuuskvhvglwdpcxuiu" +
         "sujaebwnakhsekjhzctucfqtkojiekkwckeskuejwfvhvqjapkcytagvaeacugtikveutyseue" +
         "cjwublhapskssfeoddqikkwckeskuejwfvhvwjkmgzwoeehsvifb";
-        for(int i = 0;i<keys.size();i++){
-            solutions.add(decrypt(textToDecrypt, keys.get(i)));
-            keysUsed.add(keys.get(i));
-        }*/
-      /*  System.out.println(solutions.size() + " Solutions remain");
-        solutions = lookForCommonWords(solutions);
-        System.out.println(solutions.size() + " Solutions remain");
-        for(int i = 0; i < solutions.size();i++){
-            System.out.println(solutions.get(i));
-        }
-        System.out.println(keys.get(19680));*/
+       
+        String[] textSegments = segmentText(textToDecrypt, 8);
+        String decryptedText = decrypt(textToDecrypt, "oscar");
+        System.out.println(decryptedText);
     }
+
     public static void printAll(ArrayList list){
         for(int i = 0; i < list.size();i++){
             System.out.println(list.get(i));
@@ -140,7 +130,7 @@ public class VigenereCipher {
         return validtext;
     }
 
-    public static String segmentText(String textToSegment, int lengthOfSegment){
+    public static String[] segmentText(String textToSegment, int lengthOfSegment){
         String[] textSegments = new String[lengthOfSegment];
         
         for(int i=0; i<textToSegment.length(); i++){
@@ -149,6 +139,6 @@ public class VigenereCipher {
         for(int i=0; i<textSegments.length; i++){
             System.out.print(i + " " + textSegments[i] + "\n");
         }
-        return "";
+        return textSegments;
     }
 }
