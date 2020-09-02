@@ -1,4 +1,4 @@
-package cryptographyLab1;
+//package cryptographyLab1;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,13 +11,16 @@ public class VigenereCipher {
         ArrayList<String> solutions = new ArrayList<>();
         String textToEncrypt =  "I was walking in the forest";;
         textToEncrypt = encrypt(textToEncrypt, "apples");
-        String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
-        "ftspacmrknxwfhoiasvifbkaskseuiecjfeihgutlrqvhvvafdvbsupvqluowhzgspglgmjqja" +
-        "pkofclpgauijikgdkctterqzerpdlqgiohjitgweuiwlaspglgmjoffgrwfcctskutfhzgcfbl" +
-        "gnkggheeqjapksvoejgsiejsngnztljetfqrtfujcpywumepwkwnbbgynzbsfdzhaqnkcectys" +
-        "ectzqsnaeodaszgghcimhvoxfsrhzqsngffavhdgutyghspacmkkszbunuuskvhvglwdpcxuiu" +
-        "sujaebwnakhsekjhzctucfqtkojiekkwckeskuejwfvhvqjapkcytagvaeacugtikveutyseue" +
-        "cjwublhapskssfeoddqikkwckeskuejwfvhvwjkmgzwoeehsvifb";
+        String textToDecrypt = "bxvkegwwtcdhnpoyqdgtvewfvdxaocxauosakdkmxarxxwzaaaqqjhvtkliuszvo" + 
+        "tyhhxqellzkdomplsiqfroigagzkmwfbptspruytqefxvxhlmbbrtllvtfehlxzrhhtkzbifeeeslprthagkdtk" + 
+        "ovvrltcssdhomprkpxabxwhdxzefeswxicuqbzowinlljlfcontzzuumvciepwwksytcnpqgnhvgezlcgavjyzre" + 
+        "lbeubifogxvjigdfysticeyxmvlrxuwidhncsslqaovbwbtkrfxjhwtbcxafrhqsbtgrklfejlpotzqnhzkdtvfz" + 
+        "mguzdhowqntrnlrxwggpvfuwonlbugwksxleiwlvjupcpemntgzwcmsewjiwjocmmwgnhosvtbl";
+
+        String dumb = segmentText(textToDecrypt, 8);
+        String decryptedText = decrypt(textToDecrypt, "gbnufiul");
+        System.out.println(decryptedText);
+
         for(int i = 0;i<keys.size();i++){
             solutions.add(decrypt(textToDecrypt, keys.get(i)));
             keysUsed.add(keys.get(i));
@@ -101,5 +104,17 @@ public class VigenereCipher {
             }
         }
         return validtext;
+    }
+
+    public static String segmentText(String textToSegment, int lengthOfSegment){
+        String[] textSegments = new String[lengthOfSegment];
+        
+        for(int i=0; i<textToSegment.length(); i++){
+            textSegments[i%lengthOfSegment] += textToSegment.charAt(i);
+        }
+        for(int i=0; i<textSegments.length; i++){
+            System.out.print(i + " " + textSegments[i] + "\n");
+        }
+        return "";
     }
 }
