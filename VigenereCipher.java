@@ -1,4 +1,3 @@
-//package cryptographyLab1;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,31 +8,66 @@ public class VigenereCipher {
         ArrayList<String> keys = getKeys();
         ArrayList<String> keysUsed = new ArrayList<>();
         ArrayList<String> solutions = new ArrayList<>();
-        String textToEncrypt =  "I was walking in the forest";;
-        textToEncrypt = encrypt(textToEncrypt, "apples");
-        String textToDecrypt = "bxvkegwwtcdhnpoyqdgtvewfvdxaocxauosakdkmxarxxwzaaaqqjhvtkliuszvo" + 
-        "tyhhxqellzkdomplsiqfroigagzkmwfbptspruytqefxvxhlmbbrtllvtfehlxzrhhtkzbifeeeslprthagkdtk" + 
-        "ovvrltcssdhomprkpxabxwhdxzefeswxicuqbzowinlljlfcontzzuumvciepwwksytcnpqgnhvgezlcgavjyzre" + 
-        "lbeubifogxvjigdfysticeyxmvlrxuwidhncsslqaovbwbtkrfxjhwtbcxafrhqsbtgrklfejlpotzqnhzkdtvfz" + 
-        "mguzdhowqntrnlrxwggpvfuwonlbugwksxleiwlvjupcpemntgzwcmsewjiwjocmmwgnhosvtbl";
+        File file = new File("hobbit.txt");
+        File aaronAndJoe = new File("AaronAndJoe.txt");
+        File cassieAndJacob = new File("CassieAndJacob.txt");
+        File elena = new File("elena.txt");
+        String textToEncrypt = getTextFromFile(file);
+    
+        System.out.println(textToEncrypt);
+        String CassieAndJacobText = getTextFromFile(cassieAndJacob);
+        String AaronAndJoeText = getTextFromFile(aaronAndJoe);
+        String elenaText = getTextFromFile(elena);
+        ArrayList<String> solvedDecryptions = new ArrayList<>();
+        CassieAndJacobText = decrypt(CassieAndJacobText, "rolled");
+        AaronAndJoeText = decrypt(AaronAndJoeText, "swamp");
+        elenaText = decrypt(elenaText, "oscar");
+        solvedDecryptions.add(CassieAndJacobText);
+        solvedDecryptions.add(AaronAndJoeText);
+        solvedDecryptions.add(elenaText);
+       // printAll(solvedDecryptions);
+       textToEncrypt = encrypt(textToEncrypt, "daunting");
+        System.out.println(textToEncrypt);
+        System.out.println(decrypt(textToEncrypt, "daunting"));
 
         String dumb = segmentText(textToDecrypt, 8);
         String decryptedText = decrypt(textToDecrypt, "gbnufiul");
         System.out.println(decryptedText);
 
+      /*  String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
+        "ftspacmrknxwfhoiasvifbkaskseuiecjfeihgutlrqvhvvafdvbsupvqluowhzgspglgmjqja" +
+        "pkofclpgauijikgdkctterqzerpdlqgiohjitgweuiwlaspglgmjoffgrwfcctskutfhzgcfbl" +
+        "gnkggheeqjapksvoejgsiejsngnztljetfqrtfujcpywumepwkwnbbgynzbsfdzhaqnkcectys" +
+        "ectzqsnaeodaszgghcimhvoxfsrhzqsngffavhdgutyghspacmkkszbunuuskvhvglwdpcxuiu" +
+        "sujaebwnakhsekjhzctucfqtkojiekkwckeskuejwfvhvqjapkcytagvaeacugtikveutyseue" +
+        "cjwublhapskssfeoddqikkwckeskuejwfvhvwjkmgzwoeehsvifb";
         for(int i = 0;i<keys.size();i++){
             solutions.add(decrypt(textToDecrypt, keys.get(i)));
             keysUsed.add(keys.get(i));
-        }
-        System.out.println(solutions.size() + " Solutions remain");
+        }*/
+      /*  System.out.println(solutions.size() + " Solutions remain");
         solutions = lookForCommonWords(solutions);
         System.out.println(solutions.size() + " Solutions remain");
         for(int i = 0; i < solutions.size();i++){
             System.out.println(solutions.get(i));
         }
-        System.out.println(keys.get(19680));
+        System.out.println(keys.get(19680));*/
+    }
+    public static void printAll(ArrayList list){
+        for(int i = 0; i < list.size();i++){
+            System.out.println(list.get(i));
+        }
     }
 
+    public static String getTextFromFile(File file) throws FileNotFoundException {
+        String text = "";
+        Scanner scan = new Scanner(file);
+        while(scan.hasNextLine()){
+            text += scan.nextLine();
+        }
+        scan.close();
+        return text;
+    }
     public static String encrypt(String message, String key) {
         String encryptedMessage = "";
         message = makeValid(message);
@@ -73,7 +107,7 @@ public class VigenereCipher {
     }
 
     public static ArrayList<String> getKeys() throws FileNotFoundException {
-        File file = new File("cryptographyLab1\\goodwords.txt");
+        File file = new File("goodwords.txt");
         Scanner scan = new Scanner(file);
         ArrayList<String> words = new ArrayList<>();
         while(scan.hasNextLine()){
