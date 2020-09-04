@@ -44,7 +44,7 @@ public class VigenereCipher {
 
     }
 
-    public static void printAll(ArrayList list){
+    public static void printAll(ArrayList<String> list){
         for(int i = 0; i < list.size();i++){
             System.out.println(list.get(i));
         }
@@ -100,10 +100,6 @@ public class VigenereCipher {
         }
         return solutions;
     }
-    private static char loopKey(String key, int index) {
-        int keyIndex = index % key.length();
-        return key.charAt(keyIndex);
-    }
 
     public static ArrayList<String> getKeys() throws FileNotFoundException {
         File file = new File("goodwords.txt");
@@ -136,8 +132,10 @@ public class VigenereCipher {
         ArrayList<String> validtext = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
             String testText = list.get(i);
+            // if statement contains common words that can be changed out if needed
             if(testText.contains("the") && testText.contains("and") && testText.contains("ing")  && testText.contains("that")
-            && testText.contains("have")){
+            && testText.contains("have")){// only 5 words are needed to narrow down our groups text to a sample size of 7 which can then be 
+                //manually sifted through
                 validtext.add(list.get(i));
                 System.out.println(i);
             }
