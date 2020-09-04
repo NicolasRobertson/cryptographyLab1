@@ -6,41 +6,54 @@ import java.util.ArrayList;
 public class VigenereCipher {
     public static void main(String args0[]) throws FileNotFoundException {
         ArrayList<String> keys = getKeys();
-        ArrayList<String> keysUsed = new ArrayList<>();
         ArrayList<String> solutions = new ArrayList<>();
-        File file = new File("hobbit.txt");
+        
         File aaronAndJoe = new File("AaronAndJoe.txt");
         File cassieAndJacob = new File("CassieAndJacob.txt");
         File elena = new File("elena.txt");
-        String textToEncrypt = getTextFromFile(file);
-    
-        System.out.println(textToEncrypt);
+        File taylorAndAaron = new File("TaylorAndAaron.txt");
+        File melissaAndAnanya = new File("MelissAndAnanya.txt");
+
+        //Solved Encryptions
+       // System.out.println(textToEncrypt);
         String CassieAndJacobText = getTextFromFile(cassieAndJacob);
         String AaronAndJoeText = getTextFromFile(aaronAndJoe);
         String elenaText = getTextFromFile(elena);
+        String TaylorAndAaron = getTextFromFile(taylorAndAaron);
+        String MelissaAndAnanya = getTextFromFile(melissaAndAnanya);
+
         ArrayList<String> solvedDecryptions = new ArrayList<>();
         CassieAndJacobText = decrypt(CassieAndJacobText, "rolled");
         AaronAndJoeText = decrypt(AaronAndJoeText, "swamp");
         elenaText = decrypt(elenaText, "oscar");
+        TaylorAndAaron = decrypt(TaylorAndAaron,"united");
+        MelissaAndAnanya = decrypt(MelissaAndAnanya, "quasar");
+
         solvedDecryptions.add(CassieAndJacobText);
         solvedDecryptions.add(AaronAndJoeText);
         solvedDecryptions.add(elenaText);
-       // printAll(solvedDecryptions);
-       textToEncrypt = encrypt(textToEncrypt, "daunting");
-        System.out.println(textToEncrypt);
-        System.out.println(decrypt(textToEncrypt, "daunting"));
-
-        String textToDecrypt = "qjapkofclpgauficevhvujgebkgtdjhzctdssphzrvgnrbvvoccgueecjvolblkezgljejhmfy" +
-        "ftspacmrknxwfhoiasvifbkaskseuiecjfeihgutlrqvhvvafdvbsupvqluowhzgspglgmjqja" +
-        "pkofclpgauijikgdkctterqzerpdlqgiohjitgweuiwlaspglgmjoffgrwfcctskutfhzgcfbl" +
-        "gnkggheeqjapksvoejgsiejsngnztljetfqrtfujcpywumepwkwnbbgynzbsfdzhaqnkcectys" +
-        "ectzqsnaeodaszgghcimhvoxfsrhzqsngffavhdgutyghspacmkkszbunuuskvhvglwdpcxuiu" +
-        "sujaebwnakhsekjhzctucfqtkojiekkwckeskuejwfvhvqjapkcytagvaeacugtikveutyseue" +
-        "cjwublhapskssfeoddqikkwckeskuejwfvhvwjkmgzwoeehsvifb";
+        solvedDecryptions.add(TaylorAndAaron);
+        solvedDecryptions.add(MelissaAndAnanya);
+        printAll(solvedDecryptions);
        
-        String[] textSegments = segmentText(textToDecrypt, 8);
-        String decryptedText = decrypt(textToDecrypt, "oscar");
-        System.out.println(decryptedText);
+       //Our text to Encrypt
+       File file = new File("hobbit.txt");
+       String textToEncrypt = getTextFromFile(file);
+       textToEncrypt = encrypt(textToEncrypt, "daunting");
+       // System.out.println(textToEncrypt);
+       // System.out.println(decrypt(textToEncrypt, "daunting"));
+
+       
+    
+       /* solutions.clear();
+        solutions = decryptALL(keys,MelissaAndAnanya);
+   
+        solutions = lookForCommonWords(solutions); */
+    /*    System.out.println(solutions.size() + " Solutions remain");
+        printAll(solutions);
+        System.out.println(keys.get(22311));*/
+
+
     }
 
     public static void printAll(ArrayList list){
@@ -58,6 +71,7 @@ public class VigenereCipher {
         scan.close();
         return text;
     }
+
     public static String encrypt(String message, String key) {
         String encryptedMessage = "";
         message = makeValid(message);
@@ -91,6 +105,13 @@ public class VigenereCipher {
         return decryptedMessage;
     }
 
+    public static ArrayList<String> decryptALL(ArrayList<String> keys, String message){
+        ArrayList<String> solutions = new ArrayList<>();
+        for(int i = 0; i < keys.size();i++ ){
+            solutions.add( decrypt(message, keys.get(i)));
+        }
+        return solutions;
+    }
     private static char loopKey(String key, int index) {
         int keyIndex = index % key.length();
         return key.charAt(keyIndex);
@@ -119,10 +140,15 @@ public class VigenereCipher {
         
         return validText;
     }
+
+    //The idea here was to change out the word the program is looking for with words that would likely be in the text
+    // So after all the keys are put in, this functions filter out the ones that do no contain key words
+    // Afterwards if needed new keywords are added to lower the amount of viable solutions.
     public static ArrayList<String> lookForCommonWords(ArrayList<String> list){
         ArrayList<String> validtext = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            if(list.get(i).contains("the") && (list.get(i).contains("in") && (list.get(i).contains("and")) && (list.get(i).contains("of")) && list.get(i).contains("to")) ){
+            if(list.get(i).contains("the") && list.get(i).contains("in") && list.get(i).contains("and") && list.get(i).contains("ing")
+            && list.get(i).contains("cryptography") ){
                 validtext.add(list.get(i));
                 System.out.println(i);
             }
