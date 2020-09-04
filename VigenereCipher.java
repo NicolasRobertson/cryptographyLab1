@@ -6,52 +6,40 @@ import java.util.ArrayList;
 public class VigenereCipher {
     public static void main(String args0[]) throws FileNotFoundException {
         ArrayList<String> keys = getKeys();
-        ArrayList<String> solutions = new ArrayList<>();
-        
-        File aaronAndJoe = new File("AaronAndJoe.txt");
-        File cassieAndJacob = new File("CassieAndJacob.txt");
-        File elena = new File("elena.txt");
-        File taylorAndAaron = new File("TaylorAndAaron.txt");
-        File melissaAndAnanya = new File("MelissAndAnanya.txt");
+        ArrayList<String> solutions = new ArrayList<>();    
 
         //Solved Encryptions
        // System.out.println(textToEncrypt);
-        String CassieAndJacobText = getTextFromFile(cassieAndJacob);
-        String AaronAndJoeText = getTextFromFile(aaronAndJoe);
-        String elenaText = getTextFromFile(elena);
-        String TaylorAndAaron = getTextFromFile(taylorAndAaron);
-        String MelissaAndAnanya = getTextFromFile(melissaAndAnanya);
-
-        ArrayList<String> solvedDecryptions = new ArrayList<>();
-        CassieAndJacobText = decrypt(CassieAndJacobText, "rolled");
-        AaronAndJoeText = decrypt(AaronAndJoeText, "swamp");
-        elenaText = decrypt(elenaText, "oscar");
-        TaylorAndAaron = decrypt(TaylorAndAaron,"united");
-        MelissaAndAnanya = decrypt(MelissaAndAnanya, "quasar");
-
-        solvedDecryptions.add(CassieAndJacobText);
-        solvedDecryptions.add(AaronAndJoeText);
-        solvedDecryptions.add(elenaText);
-        solvedDecryptions.add(TaylorAndAaron);
-        solvedDecryptions.add(MelissaAndAnanya);
-        printAll(solvedDecryptions);
-       
+       String hobbit = "In a hole in the ground there lived a hobbit. Not a nasty, dirty, wet hole, filled with the ends of worms "+
+       "and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat; it was a hobbit-hole, and that"+
+       " means comfort It had a perfectly round door like a porthole, painted green, with a shiny yellow brass knob in the exact middle."+
+       " The door opened on to a tube-shaped hall like a tunnel: a very comfortable tunnel without smoke, with paneled walls, and floors "+
+       "tiled and carpeted, provided with polished chairs, and lots and lots of pegs for hats and coats – the hobbit was fond of visitors."+
+       " The tunnel wound on and on, going fairly but not quite straight into the side of the hill – The Hill, as all the people for many "+
+       "miles round called it – and many little round doors opened out of it, first on one side and then on another. No going upstairs for"+
+       "the hobbit: bedrooms, bathrooms, cellars, pantries (lots of these), wardrobes (he had whole rooms devoted to clothes), kitchens,"+
+       "dining-rooms, all were on the same floor, and indeed on the same passage. The best rooms were all on the left-hand side (going in),"+
+       "for these were the only ones to have windows, deep-set round windows looking over his garden, and meadows beyond, sloping down to the"+ 
+       "river This hobbit was a very well-to-do hobbit, and his name was Baggins. The Bagginses had lived in the neighbourhood of The Hill for" +
+       "time out of mind, and people considered them very respectable, not only because most of them were rich, but also because they never had"+
+       "any adventures or did anything unexpected: you could tell what a Baggins would say on any question without the bother of asking him. This" +
+       "is a story of how a Baggins had an adventure, and found himself doing and saying things altogether unexpected. He may have lost the "+
+       "neighbours’ respect, but he gained – well, you will see whether he gained anything in the end.";
        //Our text to Encrypt
-       File file = new File("hobbit.txt");
-       String textToEncrypt = getTextFromFile(file);
+       String textToEncrypt = makeValid(hobbit);
        textToEncrypt = encrypt(textToEncrypt, "daunting");
+        System.out.println(textToEncrypt);
+        System.out.println(decrypt(textToEncrypt, "daunting"));
        // System.out.println(textToEncrypt);
        // System.out.println(decrypt(textToEncrypt, "daunting"));
 
        
     
-       /* solutions.clear();
-        solutions = decryptALL(keys,MelissaAndAnanya);
+        solutions = decryptALL(keys,textToEncrypt);
    
-        solutions = lookForCommonWords(solutions); */
-    /*    System.out.println(solutions.size() + " Solutions remain");
+        solutions = lookForCommonWords(solutions); 
+        System.out.println(solutions.size() + " Solutions remain");
         printAll(solutions);
-        System.out.println(keys.get(22311));*/
 
 
     }
@@ -147,8 +135,9 @@ public class VigenereCipher {
     public static ArrayList<String> lookForCommonWords(ArrayList<String> list){
         ArrayList<String> validtext = new ArrayList<>();
         for(int i = 0;i<list.size();i++){
-            if(list.get(i).contains("the") && list.get(i).contains("in") && list.get(i).contains("and") && list.get(i).contains("ing")
-            && list.get(i).contains("cryptography") ){
+            String testText = list.get(i);
+            if(testText.contains("the") && testText.contains("and") && testText.contains("ing")  && testText.contains("that")
+            && testText.contains("have")){
                 validtext.add(list.get(i));
                 System.out.println(i);
             }
